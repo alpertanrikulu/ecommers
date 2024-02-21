@@ -4,6 +4,7 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
 from taggit.managers import TaggableManager
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 STATUS_CHOICES = (
@@ -55,7 +56,8 @@ class Vendor(models.Model):
     title = models.CharField(max_length=100, default="Nestify")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     cover_image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
-    description = models.TextField(null=True, blank=True, default="It is a amazing Vendor") # form oluşturulup kullanıcıdan bilgi alınırken bu alanın kullanıcı boş bırakabilmesi için blank=True yapıldı. db de boş olabilmesi için null=True
+    # description = models.TextField(null=True, blank=True, default="It is a amazing Vendor") # form oluşturulup kullanıcıdan bilgi alınırken bu alanın kullanıcı boş bırakabilmesi için blank=True yapıldı. db de boş olabilmesi için null=True
+    description = RichTextUploadingField(null=True, blank=True, default="It is a amazing Vendor") # form oluşturulup kullanıcıdan bilgi alınırken bu alanın kullanıcı boş bırakabilmesi için blank=True yapıldı. db de boş olabilmesi için null=True
     
     address = models.CharField(max_length=100, default="123 Main Street.")
     contact = models.CharField(max_length=100, default="555 444 3322")
@@ -86,12 +88,14 @@ class Product(models.Model):
 
     title = models.CharField(max_length=100, default="Fresh pear")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
-    description = models.TextField(null=True, blank=True, default="This is the product")
+    # description = models.TextField(null=True, blank=True, default="This is the product")
+    description = RichTextUploadingField(null=True, blank=True, default="This is the product")
 
     price = models.DecimalField(max_digits=9999999999999, decimal_places=2, default="1.99")
     old_price = models.DecimalField(max_digits=9999999999999, decimal_places=2, default="2.99")
 
-    specifications = models.TextField(null=True, blank=True)
+    # specifications = models.TextField(null=True, blank=True)
+    specifications = RichTextUploadingField(null=True, blank=True)
     type = models.CharField(max_length=100, default="Organic", null=True, blank=True)
     stock_count = models.IntegerField(default=10, null=True, blank=True)
     life = models.IntegerField(default=90, null=True, blank=True)
@@ -109,7 +113,9 @@ class Product(models.Model):
     sku = ShortUUIDField(unique=True, length=4, max_length=10, prefix="sku", alphabet="abcdefgh12345")
 
     date = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(blank=True)
+    # updated = models.DateTimeField(blank=True)
+    updated = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         verbose_name_plural = "Products"
