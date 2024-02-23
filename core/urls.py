@@ -20,4 +20,6 @@ urlpatterns = [
     # Tags
     path("products/tags/<slug:tag_slug>/", views.tag_list, name="tag_list"), # slug: ifadesi url deki parametrenin türünü belirtir int str gibi
 
+    # Add Review
+    path("ajax-add-review/<pid>", views.ajax_add_review, name="ajax_add_review")
 ]
