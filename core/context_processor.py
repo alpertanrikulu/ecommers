@@ -17,6 +17,7 @@ from django.contrib.auth.models import User
 def default(request):
     categories = Category.objects.all()
     address = None  # Varsayılan olarak adresi None olarak ayarla
+    vendors = Vendor.objects.all()
 
     if request.user.is_authenticated:  # Kullanıcı giriş yapmışsa
         try:
@@ -27,4 +28,5 @@ def default(request):
     return {
         'categories': categories,
         'address': address,
+        'vendors': vendors,
     }
