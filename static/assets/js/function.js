@@ -83,5 +83,21 @@ $(document).ready(function () {
             })
         })
         console.log("Filter object is: ", filter_object);
+
+        $.ajax({
+            url: '/filter-products',
+            data: filter_object,
+            dataType: 'json',
+            beforeSend: function () {
+                console.log("Trying to filter product...");
+            },
+            success: function (response) {
+                console.log(response.length);
+                console.log("Data filtred successfully...");
+                // $(".totall-product").hide()
+                $("#filtered-product").html(response.data)
+            }
+        })
+        console.log("Basarili!!!!");
     })
 })

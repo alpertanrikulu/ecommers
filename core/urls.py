@@ -24,5 +24,6 @@ urlpatterns = [
     path("ajax-add-review/<pid>", views.ajax_add_review, name="ajax_add_review"),
 
     # Search
-    path("search/", views.search_view, name="search_view")
+    path("search/", views.search_view, name="search_view"),
+    path("filter-products/", views.filter_product, name="filter_product"),
 ]
