@@ -13,11 +13,14 @@ from core.models import Product, Category, Vendor, CartOrder, CartOrderItems, Pr
 
 
 from django.contrib.auth.models import User
+from django.db.models import Count, Min, Max
 
 def default(request):
     categories = Category.objects.all()
     address = None  # Varsayılan olarak adresi None olarak ayarla
     vendors = Vendor.objects.all()
+
+    min_max_price = Product.objects.aggregate(Min("price"), Max("price"))
 
     if request.user.is_authenticated:  # Kullanıcı giriş yapmışsa
         try:
@@ -27,6 +30,7 @@ def default(request):
 
     return {
         'categories': categories,
+        'min_max_price': min_max_price,
         'address': address,
         'vendors': vendors,
     }
